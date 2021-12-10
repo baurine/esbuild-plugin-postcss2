@@ -54,6 +54,14 @@ describe("PostCSS esbuild tests", () => {
       })
       .catch(done);
   });
+  it("Works with fake css file", (done) => {
+    test(["tests/BasePicker.js"])
+      .then((res) => {
+        assert(res);
+        done();
+      })
+      .catch(done);
+  });
   it("Works while waching css files directly", (done) => {
     let notTriggerTimeout = null;
     build({

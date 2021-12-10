@@ -105,12 +105,9 @@ const postCSSPlugin = ({
         // Namespace is empty when using CSS as an entrypoint
         if (args.namespace !== "file" && args.namespace !== "") return;
 
-        // Resolve files from node_modules (ex: npm install normalize.css; npm install bulma)
         let sourceFullPath = resolve.sync(args.path, {
           basedir: args.resolveDir
         });
-        if (!sourceFullPath)
-          sourceFullPath = path.resolve(args.resolveDir, args.path);
 
         const sourceExt = path.extname(sourceFullPath);
         const sourceBaseName = path.basename(sourceFullPath, sourceExt);
