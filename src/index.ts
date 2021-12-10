@@ -57,7 +57,7 @@ export const defaultOptions: PostCSSPluginOptions = {
   lessOptions: {},
   stylusOptions: {},
   writeToFile: true
-}
+};
 
 const postCSSPlugin = ({
   plugins = [],
