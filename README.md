@@ -6,6 +6,8 @@ It fix some bugs of upstream likes can't compile with bluma-css, fluent-ui.
 
 It also support cache, it can reduce the incremental rebuild time in dev mode from several seconds to less than one second.
 
+It supports module replacement as well.
+
 ## Install
 
 ```sh
@@ -98,6 +100,27 @@ esbuild.build({
       enableCache: true
     })
   ]
+  ...
+});
+```
+
+### Support module replacement
+
+Support to replace a css file by another when building, works same as the [webpack NormalModuleReplacementPlugin](https://webpack.js.org/plugins/normal-module-replacement-plugin/).
+
+Usage:
+
+```js
+esbuild.build({
+  ...
+  plugins: [
+    postCssPlugin.default({
+      moduleReplacements: {
+        [path.resolve(__dirname, 'node_modules/antd/es/style/index.less')]:
+          path.resolve(__dirname, 'src/my_antd.less'),
+      },
+    }),
+  ],
   ...
 });
 ```
