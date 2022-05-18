@@ -33,6 +33,9 @@ interface PostCSSPluginOptions {
   stylusOptions?: StylusRenderOptions;
   writeToFile?: boolean;
   enableCache?: boolean;
+  // moduleReplacement, work same as the webpack NormalModuleReplacementPlugin
+  // link: https://webpack.js.org/plugins/normal-module-replacement-plugin/
+  moduleReplacements?: { [key: string]: string };
 }
 
 interface CSSModule {
@@ -56,7 +59,9 @@ export const defaultOptions: PostCSSPluginOptions = {
   sassOptions: {},
   lessOptions: {},
   stylusOptions: {},
-  writeToFile: true
+  writeToFile: true,
+  enableCache: false,
+  moduleReplacements: {}
 };
 
 const postCSSPlugin = ({
@@ -67,7 +72,8 @@ const postCSSPlugin = ({
   lessOptions = {},
   stylusOptions = {},
   writeToFile = true,
-  enableCache = false
+  enableCache = false,
+  moduleReplacements = {}
 }: PostCSSPluginOptions = defaultOptions): Plugin => ({
   name: "postcss2",
   setup(build) {
@@ -119,6 +125,13 @@ const postCSSPlugin = ({
         ) {
           return;
         }
+
+        // check whether need to replace
+        const replace = moduleReplacements[sourceFullPath];
+        if (replace) {
+          sourceFullPath = replace;
+        }
+
         const sourceBaseName = path.basename(sourceFullPath, sourceExt);
         const isModule = sourceBaseName.match(/\.module$/);
 
