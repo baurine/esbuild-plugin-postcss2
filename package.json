@@ -29,7 +29,7 @@
   "dependencies": {
     "autoprefixer": "^10.2.5",
     "bulma": "^0.9.3",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "less": "^4.x",
     "postcss": "8.x",
     "postcss-modules": "^4.0.0",
